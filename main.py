@@ -10,7 +10,8 @@ import xml.etree.ElementTree as ET
 
 def get_info():
     pid = os.getpid()
-    program = "notepad.exe"
+    print("Путь к файлу:")
+    program = input()
     print("Частота опроса, сек.")
     interval = input()
     pid = subprocess.Popen(program).pid
@@ -30,7 +31,7 @@ def get_info():
         print(f"CPU: {process.cpu_percent()}%")
         time.sleep(int(interval))
         i+=1
-    ET.dump(first)
+    ET.ElementTree(first).write("1.xml")
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
