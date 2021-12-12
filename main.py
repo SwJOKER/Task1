@@ -25,7 +25,7 @@ def get_info():
         ET.SubElement(se, "working_set").text = str(process.memory_info().wset)
         ET.SubElement(se, "private_bytes").text = str(process.memory_info().private)
         ET.SubElement(se, "cpu").text = str(process.cpu_percent())
-        print(f"Хендлеры: {process.num_handles()}")
+        print(f"Handlers: {process.num_handles()}")
         print(f"Working Set: {process.memory_info().wset}")
         print(f"Private Bytes: {(process.memory_info().private)}")
         print(f"CPU: {process.cpu_percent()}%")
