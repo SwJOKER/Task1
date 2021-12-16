@@ -3,21 +3,22 @@ import psutil
 import subprocess
 import time
 import xml.etree.ElementTree as ET
+import sys
 
 
-INTERVAL = 2
-PROGRAM_PATH = "notepad.exe"
+INTERVAL = sys.argv[1]
+PROGRAM_PATH = sys.argv[2]
+LOG_PATH = sys.argv[3]
 
 
 def get_info():
     try:
         pid = subprocess.Popen(PROGRAM_PATH).pid
     except FileNotFoundError:
-        print("Неверный путь")
+        print("wrong path")
         exit()
     process = psutil.Process(pid)
     root = ET.Element("data")
-
     root.set("interval", str(INTERVAL))
     i = 0
     while process.is_running():
@@ -34,10 +35,9 @@ def get_info():
                      f" CPU: {process.cpu_percent()}%")
         time.sleep(int(INTERVAL))
         i += 1
-    ET.ElementTree(root).write("1.xml")
+    ET.ElementTree(root).write(LOG_PATH)
 
 
 if __name__ == '__main__':
     get_info()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
