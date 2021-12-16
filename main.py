@@ -15,12 +15,11 @@ def get_info():
     try:
         pid = subprocess.Popen(PROGRAM_PATH).pid
     except FileNotFoundError:
-        print("wrong path")
+        print("Wrong path")
         exit()
     process = psutil.Process(pid)
     root = ET.Element("data")
     root.set("interval", str(INTERVAL))
-    i = 0
     while process.is_running():
         logging.basicConfig(level=logging.INFO)
         stats = ET.SubElement(root, 'stats')
@@ -34,7 +33,6 @@ def get_info():
                      f"Private Bytes: {process.memory_info().private}" +
                      f" CPU: {process.cpu_percent()}%")
         time.sleep(int(INTERVAL))
-        i += 1
     ET.ElementTree(root).write(LOG_PATH)
 
 
